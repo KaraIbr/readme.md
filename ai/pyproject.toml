@@ -1,0 +1,39 @@
+[project]
+name = "modeltest"
+version = "0.1.0"
+description = "Streamlit app to compare Azure-hosted LLM models"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "azure-identity>=1.25.3",
+    "openai>=2.48.0",
+    "pydantic-settings>=2.14.2",
+    "pypdf>=6.14.2",
+    "python-dotenv>=1.2.2",
+    "streamlit>=1.60.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/models", "src/config", "src/documents"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.0",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "ui", "tests"]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

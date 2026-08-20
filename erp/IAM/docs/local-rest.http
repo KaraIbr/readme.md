@@ -1,0 +1,88 @@
+@baseUrl = http://127.0.0.1:8100/api/v1
+@ownerToken = paste-owner-access-token-here
+@userId = 1
+@serviceUserId = 2
+
+### Create first user (bootstrap only, when no users exist)
+POST {{baseUrl}}/users/
+Content-Type: application/json
+
+{
+  "email": "owner@example.com",
+  "password": "correct-password",
+  "full_name": "Owner User"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=owner@example.com&password=correct-password
+
+### Current user
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{ownerToken}}
+
+### Create user after bootstrap
+POST {{baseUrl}}/users/
+Authorization: Bearer {{ownerToken}}
+Content-Type: application/json
+
+{
+  "email": "service.user@example.com",
+  "password": "correct-password",
+  "full_name": "Service User"
+}
+
+### Read user
+GET {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{ownerToken}}
+
+### Update user
+PATCH {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{ownerToken}}
+Content-Type: application/json
+
+{
+  "full_name": "Updated User"
+}
+
+### List IAM permissions
+GET {{baseUrl}}/permissions/
+Authorization: Bearer {{ownerToken}}
+
+### Read user IAM permission state
+GET {{baseUrl}}/permissions/users/{{userId}}
+Authorization: Bearer {{ownerToken}}
+
+### Grant an IAM permission
+PATCH {{baseUrl}}/permissions/users/{{userId}}
+Authorization: Bearer {{ownerToken}}
+Content-Type: application/json
+
+{
+  "grant": ["iam.users.create"],
+  "deny": [],
+  "clear": []
+}
+
+### List known VERP services
+GET {{baseUrl}}/services/
+Authorization: Bearer {{ownerToken}}
+
+### Grant CRM service access
+POST {{baseUrl}}/services/users/{{serviceUserId}}/access
+Authorization: Bearer {{ownerToken}}
+Content-Type: application/json
+
+{
+  "service_key": "crm"
+}
+
+### List user service access
+GET {{baseUrl}}/services/users/{{serviceUserId}}
+Authorization: Bearer {{ownerToken}}
+
+### Revoke CRM service access
+DELETE {{baseUrl}}/services/users/{{serviceUserId}}/access/crm
+Authorization: Bearer {{ownerToken}}

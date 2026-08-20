@@ -1,0 +1,54 @@
+name: CI — ERP (CRM + IAM)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "erp/**"
+      - "pyproject.toml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "erp/**"
+      - "pyproject.toml"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+      - run: uv sync
+      - name: Ruff check
+        run: uv run ruff check erp/CRM/src erp/IAM/src
+      - name: Ruff format
+        run: uv run ruff format --check erp/CRM/src erp/IAM/src
+
+  test-crm:
+    name: Tests — CRM
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+      - run: uv sync
+      - name: Run CRM tests
+        run: uv run pytest erp/CRM/tests -v --tb=short
+
+  test-iam:
+    name: Tests — IAM
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+      - run: uv sync
+      - name: Run IAM tests
+        run: uv run pytest erp/IAM/tests -v --tb=short

@@ -1,0 +1,170 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+
+# ── Virtual environments ────────────────────────────────
+.venv/
+venv/
+
+# ── Environment & secrets ──────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Databases ──────────────────────────────────────────
+*.db
+*.db-*
+*.db.*.bak
+
+# ── Logs ───────────────────────────────────────────────
+*.log
+*.err
+
+# ── Coverage & testing ─────────────────────────────────
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# ── Type checking & linting ────────────────────────────
+.mypy_cache/
+.ruff_cache/
+
+# ── IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ─────────────────────────────────────────────────
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ── uv workspace ───────────────────────────────────────
+.python-version
+uv.lock
+
+# ── Uploads & scratch ──────────────────────────────────
+uploads/
+tmp_hash.txt
+
+# ── Frontend (erp) ─────────────────────────────────────
+erp/frontend/node_modules/
+erp/frontend/dist/
+erp/frontend/coverage/
+erp/frontend/.next/
+
+# ── opencode ───────────────────────────────────────────
+.opencode/
+
+# ── Home directory clutter (repo is at ~/) ─────────────
+.VirtualBox/
+.anaconda/
+.android/
+.arduinoIDE/
+.bash_history
+.bun/
+.cache/
+.cagent/
+.claude.json
+.claude/
+.codex/
+.conda/
+.condarc
+.config/
+.continuum/
+.copilot/
+.cursor/
+.dbclient/
+.docker/
+.dotnet/
+.emulator_console_auth_token
+.expo/
+.gemini/
+.gitconfig
+.gnupg/
+.gradle/
+.ipython/
+.jupyter/
+.kube/
+.kuberlr/
+.lesshst
+.local/
+.matplotlib/
+.mysqlsh-gui/
+.node_repl_history
+.npm/
+.npmrc
+.openclaw/
+.packettracer/
+.pnpm-cache/
+.pnpm-state/
+.pnpm/
+.semgrep/
+.spyder-py3/
+.ssh/
+.swt/
+.thumbnails/
+.vscode-shared/
+.wdm/
+.yarnrc
+bun.lock
+node_modules/
+npm-cache/
+package-lock.json
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+pemhttpd.exe*
+edb_*.exe*
+edb_*.exe-*
+postgis_*.exe*
+java_error_in_*.hprof
+netstat
+AdventureWorks*.bak
+*.regtrans-ms
+*.regtrans-ms.cnpf
+*.TM.blf
+*.TM.blf.cnpf
+ntuser.ini
+ntuser.dat*
+
+# ── Top-level dirs to ignore ───────────────────────────
+3D Objects/
+AppData/
+Contacts/
+Desktop/
+Downloads/
+Favorites/
+IntelGraphicsProfiles/
+Jedi/
+Links/
+Music/
+My Music/
+My Pictures/
+My Videos/
+NTUSER.DAT*
+OneDrive/
+Pictures/
+Saved Games/
+Searches/
+Videos/
+ZAP/
+Zotero/
+AndroidStudioProjects/
+Cisco Packet Tracer*/
+iCloudDrive/
+source/
+verp-frontend/
+vscode-remote-wsl/
+karaibr.github.io/
+Documents/
+gcloud/

@@ -1,0 +1,58 @@
+# VERP pre-commit hooks
+# Install:  uv run pre-commit install --hook-type pre-commit --hook-type commit-msg
+# Run all:  uv run pre-commit run --all-files
+#
+# Policy: fast local feedback only. The authoritative gates run in CI (ci.yml):
+# pytest + coverage, mypy, frontend vitest. Hooks here must stay fast.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+        exclude: ^frontend/tsconfig.*\.json$
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: no-commit-to-branch
+        args: [--branch, main]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.14
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # mypy runs per service (CRM and IAM define the same table names in one global
+  # SQLModel.metadata; they must never be type-checked in one process).
+  - repo: local
+    hooks:
+      - id: mypy-crm
+        name: mypy CRM
+        entry: uv run mypy CRM/src
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: mypy-iam
+        name: mypy IAM
+        entry: uv run mypy IAM/src
+        language: system
+        pass_filenames: false
+        types: [python]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.17.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  - repo: local
+    hooks:
+      - id: block-err-files
+        name: block committed .err debug artifacts
+        entry: "Error: .err files are debug artifacts and must not be committed"
+        language: fail
+        files: \.(err)$

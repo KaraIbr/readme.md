@@ -1,0 +1,1 @@
+"""Technical visits domain package."""

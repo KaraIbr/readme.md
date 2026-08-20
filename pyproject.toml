@@ -1,0 +1,40 @@
+[project]
+name = "ventura-energy-platform"
+version = "0.1.0"
+description = "Ventura Energy integrated platform — ERP + AI"
+readme = "README.md"
+requires-python = ">=3.14"
+requires = []
+
+[tool.uv.workspace]
+members = ["erp", "ai"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.0",
+    "mypy>=1.15",
+    "pre-commit>=4.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["erp/CRM/src", "erp/IAM/src", "ai/src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "SIM", "BLE"]
+ignore = ["SIM117"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.14"
+explicit_package_bases = true
+mypy_path = "erp/CRM/src:erp/IAM/src:ai/src"
+warn_unused_ignores = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["jose.*", "passlib.*", "streamlit.*"]
+ignore_missing_imports = true
